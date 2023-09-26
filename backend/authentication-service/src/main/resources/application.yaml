@@ -1,0 +1,55 @@
+
+spring:
+  application:
+    name: authentication-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/veliqo_challeng_sm?createDatabaseIfNotExist=true
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        default_schema: public
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+  zipkin:
+    enabled: false
+
+server:
+  port: 9100
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+
+application:
+  security:
+    jwt:
+      secret: fea987ac15a4e107cda234ec924e957096f448da40864aa7d8aaa50dc1c336f27684f5a72cbacf7c91397340bc269c6e0ccd45cda7c30b00a7b843d447324003
+      expiration: 864000000
