@@ -1,12 +1,12 @@
+import { PagesComponent } from './pages/pages.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
-import { GuestComponent } from './theme/layout/guest/guest.component';
 import { AuthGuard } from '@ui-core/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'old',
     component: AdminComponent,
     canActivateChild: [AuthGuard],
     children: [
@@ -36,19 +36,10 @@ const routes: Routes = [
   },
   { path: 'auth', loadChildren: () => import('./pages/authentication/authentication.module').then((m) => m.AuthenticationModule) },
   {
-    path: 'user',
-    canActivateChild: [AuthGuard],
-    loadChildren: () => import('./pages/user/user.module').then((m) => m.UserModule)
-  },
-  {
     path: '',
-    component: GuestComponent,
-    children: [
-      {
-        path: 'guest',
-        loadChildren: () => import('./pages/authentication/authentication.module').then((m) => m.AuthenticationModule)
-      }
-    ]
+    canActivateChild: [AuthGuard],
+    component: PagesComponent,
+    loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule)
   }
 ];
 

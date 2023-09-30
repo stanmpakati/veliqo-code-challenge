@@ -7,11 +7,24 @@ export enum UserRole {
 export interface User {
   id: number;
   firstName: string;
-  middleNames: string;
+  middleNames?: string;
   lastName: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface Applicant {
+  applicantId: number;
+  user: User;
+  address: Address;
+  occupation: string;
+  mobileNumber: string;
+  sex: UserSex;
+  maritalStatus: MaritalStatus;
+  dob: Date;
+  nationality: string;
+  numberOfDependents?: number;
 }
 
 export interface AuthDetails {
@@ -34,4 +47,25 @@ export interface DecodedToken {
   sub: string;
   iat: Date;
   exp: number;
+}
+
+export interface Address {
+  street: string;
+  suburb: string;
+  city: string;
+  country: string;
+  postalCode?: string;
+}
+
+export enum UserSex {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+  OTHER = 'OTHER'
+}
+
+export enum MaritalStatus {
+  SINGLE = 'SINGLE',
+  MARRIED = 'MARRIED',
+  DIVORCED = 'DIVORCED',
+  WIDOWED = 'WIDOWED'
 }

@@ -16,31 +16,28 @@ import { NavGroupComponent } from './theme/layout/admin/navigation/nav-content/n
 import { NavCollapseComponent } from './theme/layout/admin/navigation/nav-content/nav-collapse/nav-collapse.component';
 import { NavItemComponent } from './theme/layout/admin/navigation/nav-content/nav-item/nav-item.component';
 import { SharedModule } from './theme/shared/shared.module';
-import { GuestComponent } from './theme/layout/guest/guest.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from '@ui-core/interceptors/auth.interceptor';
 import { ErrorInterceptor } from '@ui-core/interceptors/error.interceptor';
 import { AuthGuard } from '@ui-core/guards/auth.guard';
 import { UserModule } from './pages/user/user.module';
-import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
+import { PagesModule } from './pages/pages.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AdminComponent,
-    NavBarComponent,
-    NavLeftComponent,
-    NavRightComponent,
-    NavigationComponent,
-    NavLogoComponent,
-    NavContentComponent,
-    NavGroupComponent,
-    NavItemComponent,
-    NavCollapseComponent,
-    GuestComponent,
-    UserProfileComponent
+    AppComponent
+    // AdminComponent,
+    // NavBarComponent,
+    // NavLeftComponent,
+    // NavRightComponent,
+    // NavigationComponent,
+    // NavLogoComponent,
+    // NavContentComponent,
+    // NavGroupComponent,
+    // NavItemComponent,
+    // NavCollapseComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule, HttpClientModule, UserModule],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, PagesModule],
   providers: [
     NavigationItem,
     AuthGuard,

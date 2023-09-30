@@ -1,41 +1,17 @@
 import { Location, LocationStrategy } from '@angular/common';
 import { Component, NgZone } from '@angular/core';
-import { Applicant, MaritalStatus, UserSex } from '@ui-core/models/user-models';
-import { BerryConfig } from 'src/app/app-config';
+import { BerryConfig } from '../app-config';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  selector: 'app-pages',
+  templateUrl: './pages.component.html',
+  styleUrls: ['./pages.component.scss']
 })
-export class UserProfileComponent {
+export class PagesComponent {
   berryConfig;
   navCollapsed: boolean;
   navCollapsedMob = false;
   windowWidth: number;
-  applicant: Applicant = {
-    applicantId: 1,
-    dob: new Date(),
-    maritalStatus: MaritalStatus.SINGLE,
-    mobileNumber: '09112232',
-    nationality: 'ZIMBABWEAN',
-    occupation: 'Software dev',
-    sex: UserSex.MALE,
-    numberOfDependents: 0,
-    address: {
-      street: '1-20 Ave',
-      suburb: 'Mabelreign',
-      city: 'Harare',
-      country: 'Zimbabwe'
-    },
-    user: {
-      id: 1,
-      email: 'stan@gani.com',
-      firstName: 'Stan',
-      lastName: 'Mpakati',
-      middleNames: 'Gani'
-    }
-  };
 
   // Constructor
   constructor(
