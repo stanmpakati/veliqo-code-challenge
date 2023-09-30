@@ -1,0 +1,66 @@
+<div class="auth-main">
+  <div class="auth-wrapper v3">
+    <div class="auth-form">
+      <div class="card my-5">
+        <div class="card-body">
+          <div class="d-flex justify-content-center">
+            <img src="assets/images/logo.png" class="logo-img" />
+          </div>
+          <div class="row">
+            <div class="d-flex justify-content-center">
+              <div class="auth-header">
+                <h2 class="text-secondary mt-5"><b>Hi, Welcome Back</b></h2>
+                <p class="fs-4 mt-2">Enter your credentials to continue</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-danger mx-3" role="alert" *ngIf="error?.error">
+            <strong>ERROR: </strong> {{ error?.message }}
+          </div>
+
+          <form [formGroup]="loginForm" (submit)="onSubmit()">
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="floatingInput" [formControl]="emailControl" />
+              <label for="floatingInput">Email address</label>
+              <span class="text-danger" *ngIf="emailControl.touched && emailControl.errors?.['required']">
+                Email Address is required
+              </span>
+              <span class="text-danger" *ngIf="emailControl.touched && emailControl.errors?.['invalid']">
+                Email Address is invalid
+              </span>
+            </div>
+
+            <div class="form-floating input-group mb-3">
+              <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="password"
+                [formControl]="passwordControl" />
+              <button class="btn btn-outline-secondary" type="button" (click)="hidePassword = !hidePassword">
+                <i class="ti" [ngClass]="hidePassword ? 'ti-eye' : 'ti-eye-off'"></i>
+              </button>
+              <label for="password">Password</label>
+            </div>
+            <span class="text-danger" *ngIf="passwordControl.touched && passwordControl.errors?.['required']">
+              Password is required
+            </span>
+
+            <!-- <div class="d-flex mt-1 justify-content-between">
+              <h5 class="text-secondary">
+                <a routerLink="/auth/forgot-password">Forgot Password</a>
+              </h5>
+            </div> -->
+            <div class="d-grid mt-4">
+              <button type="submit" class="btn btn-secondary" [disabled]="submitted">
+                {{ !submitted ? 'LOGIN' : 'LOADING...'}}
+              </button>
+            </div>
+          </form>
+
+          <hr />
+          <h5 class="d-flex justify-content-center">
+            <a [routerLink]="['/auth/register']"> Do not have an account? </a>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
