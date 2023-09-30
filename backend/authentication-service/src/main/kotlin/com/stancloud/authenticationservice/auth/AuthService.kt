@@ -30,7 +30,7 @@ class AuthService(
     request.lastName,
     request.email,
     passwordEncoder.encode(request.password),
-    request.roles ?: setOf(UserRole.ROLE_USER),
+    request.roles ?: setOf(UserRole.APPLICANT),
   )
 
     return UserDto(this.userRepository.save(user))

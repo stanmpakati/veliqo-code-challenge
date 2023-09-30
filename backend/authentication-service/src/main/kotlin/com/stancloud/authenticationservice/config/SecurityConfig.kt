@@ -11,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -22,6 +21,10 @@ import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.filter.CorsFilter
 
 
 @Configuration
@@ -65,6 +68,7 @@ class SecurityConfig(
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and()
       .authenticationProvider(authenticationProvider())
+      .addFilter(corsConfigurationSource()?.let { CorsFilter(it) })
       .addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter::class.java)
 
     return http.build()
@@ -117,5 +121,20 @@ class SecurityConfig(
                   }
               """.trimIndent())
     }
+  }
+
+  @Bean
+  fun corsConfigurationSource(): CorsConfigurationSource? {
+    val configuration = CorsConfiguration()
+    configuration.allowedOrigins = mutableListOf(
+      "http://localhost:4200",
+      "http://127.0.0.1:4200",
+    )
+    configuration.allowedMethods = mutableListOf("GET", "POST", "PUT", "DELETE")
+    configuration.addAllowedHeader("*")
+    configuration.allowCredentials = true
+    val source = UrlBasedCorsConfigurationSource()
+    source.registerCorsConfiguration("/**", configuration)
+    return source
   }
 }

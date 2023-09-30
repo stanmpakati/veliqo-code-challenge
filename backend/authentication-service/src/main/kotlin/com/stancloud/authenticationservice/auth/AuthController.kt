@@ -26,9 +26,9 @@ class AuthController(
   @PostMapping("/login")
   fun login(
     @Valid @RequestBody request: LoginRequest,
-  ): String {
-    var response: LoginResponse = authService.login(request)
-    return response.token
+  ): LoginResponse{
+    return authService.login(request)
+//    return response.token
   }
 
   // Verify token
