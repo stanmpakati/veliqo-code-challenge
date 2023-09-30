@@ -21,6 +21,7 @@ import { GuestComponent } from './theme/layout/guest/guest.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from '@ui-core/interceptors/auth.interceptor';
 import { ErrorInterceptor } from '@ui-core/interceptors/error.interceptor';
+import { AuthGuard } from '@ui-core/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ErrorInterceptor } from '@ui-core/interceptors/error.interceptor';
   imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule, HttpClientModule],
   providers: [
     NavigationItem,
+    AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

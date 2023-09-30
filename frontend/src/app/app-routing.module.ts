@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
+import { AuthGuard } from '@ui-core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
@@ -15,6 +17,7 @@ const routes: Routes = [
       },
       {
         path: 'default',
+        canActivateChild: [AuthGuard],
         loadComponent: () => import('./demo/default/default.component')
       },
       {
