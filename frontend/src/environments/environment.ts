@@ -7,6 +7,8 @@ import packageInfo from '../../package.json';
 export const environment = {
   BACKEND_URL: 'http://localhost:8001/api/v1',
   AUTH_URL: 'http://localhost:9100/api/v1',
+  INSURANCE_URL: 'http://localhost:9200/api/v1',
+  APP_URL: 'http://localhost:4200',
   appVersion: packageInfo.version,
   production: false
 };

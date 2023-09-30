@@ -21,11 +21,11 @@ export default class LoginComponent {
     private route: ActivatedRoute,
     public authService: AuthService
   ) {
-    this.emailControl = new FormControl('', {
+    this.emailControl = new FormControl('stan@gani.com', {
       validators: [Validators.required, Validators.email],
       updateOn: 'blur'
     });
-    this.passwordControl = new FormControl('', {
+    this.passwordControl = new FormControl('Test123.', {
       validators: Validators.required,
       updateOn: 'change'
     });

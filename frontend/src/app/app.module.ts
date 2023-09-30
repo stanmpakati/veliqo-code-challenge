@@ -18,7 +18,9 @@ import { NavItemComponent } from './theme/layout/admin/navigation/nav-content/na
 import { SharedModule } from './theme/shared/shared.module';
 import { ConfigurationComponent } from './theme/layout/admin/configuration/configuration.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from '@ui-core/interceptors/auth.interceptor';
+import { ErrorInterceptor } from '@ui-core/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,14 +38,12 @@ import { HttpClientModule } from '@angular/common/http';
     ConfigurationComponent,
     GuestComponent
   ],
-  imports: [
-    BrowserModule, 
-    AppRoutingModule, 
-    SharedModule, 
-    BrowserAnimationsModule,
-    HttpClientModule,
+  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule, HttpClientModule],
+  providers: [
+    NavigationItem,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
-  providers: [NavigationItem],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
