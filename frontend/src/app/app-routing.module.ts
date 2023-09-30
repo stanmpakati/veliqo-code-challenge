@@ -1,4 +1,3 @@
-import { PagesComponent } from './pages/pages.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
@@ -38,7 +37,7 @@ const routes: Routes = [
   {
     path: '',
     canActivateChild: [AuthGuard],
-    component: PagesComponent,
+    component: AdminComponent,
     loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule)
   }
 ];

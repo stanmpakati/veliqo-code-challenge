@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
-import { PagesComponent } from './pages.component';
 import { AdminComponent } from '../theme/layout/admin/admin.component';
 import { NavBarComponent } from '../theme/layout/admin/nav-bar/nav-bar.component';
 import { NavLeftComponent } from '../theme/layout/admin/nav-bar/nav-left/nav-left.component';
@@ -19,7 +18,6 @@ import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
-    PagesComponent,
     UserProfileComponent,
     AdminComponent,
     NavBarComponent,
