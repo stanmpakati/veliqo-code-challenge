@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: InsuranceApplication-application-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/veliqo_challeng_sm
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        default_schema: public
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+  zipkin:
+    enabled: false
+
+server:
+  port: 9200
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
