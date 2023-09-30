@@ -4,24 +4,13 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@ui/*": [
-        ".src/*"
-      ],
-      "@ui-environments/*": [
-        "src/environments/*"
-      ],
-      "@ui-assets/*": [
-        "src/app/assets/*"
-      ],
-      "@ui-core/*": [
-        "src/app/core/*"
-      ],
-      "@ui-core-models/*": [
-        "src/app/core/models/*"
-      ],
-      "@ui-core-services/*": [
-        "src/app/core/services/*"
-      ]
+      "@ui/*": [".src/*"],
+      "@ui-environments/*": ["src/environments/*"],
+      "@ui-assets/*": ["src/app/assets/*"],
+      "@ui-core/*": ["src/app/core/*"],
+      "@ui-core-models/*": ["src/app/core/models/*"],
+      "@ui-core-services/*": ["src/app/core/services/*"],
+      "@ui-pages/*": ["src/app/pages/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -40,10 +29,7 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

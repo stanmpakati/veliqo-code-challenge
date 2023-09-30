@@ -36,6 +36,11 @@ const routes: Routes = [
   },
   { path: 'auth', loadChildren: () => import('./pages/authentication/authentication.module').then((m) => m.AuthenticationModule) },
   {
+    path: 'user',
+    canActivateChild: [AuthGuard],
+    loadChildren: () => import('./pages/user/user.module').then((m) => m.UserModule)
+  },
+  {
     path: '',
     component: GuestComponent,
     children: [
