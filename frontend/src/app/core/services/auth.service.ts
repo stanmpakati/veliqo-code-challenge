@@ -7,6 +7,7 @@ import { Subject, Observable, map, tap, catchError, throwError } from 'rxjs';
 import { AuthDetails, DecodedToken, RegistrationDetails, User, UserRole } from '@ui-core/models/user-models';
 import { SSRService } from './ssr.service';
 import { AlertService } from './alert.service';
+import { FormGroup } from '@angular/forms';
 
 const authUrl = `${environment.AUTH_URL}`;
 

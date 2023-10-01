@@ -1,1 +1,121 @@
-<p>edit-profile works!</p>
+<div class="row mb-2">
+  <div class="col-10">
+    <h2>Edit Profile</h2>
+  </div>
+  <div class="col-2">
+    <a routerLink="/user/profile" class="btn btn-secondary">View Profile</a>
+  </div>
+</div>
+
+<div class="row gutters-sm">
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Basic User Details</h5>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="firstNameInput" [formControl]="firstNameControl" />
+              <label for="firstNameInput">First Name</label>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="lastNameInput" [formControl]="lastNameControl" />
+              <label for="lastNameInput">Last Name</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="middleNamesInput" [formControl]="middleNamesControl" />
+          <label for="middleNamesInput">Middle Names</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h5>Contact Details</h5>
+      </div>
+
+      <div class="card-body">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="phoneNumberInput" [formControl]="phoneNumberControl" />
+          <label for="phoneNumberInput">Phone Number</label>
+        </div>
+        <h6 class="mt-1">Address Details</h6>
+        <div class="row">
+          <div class="col-md-6 col-12 mb-3">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="streetAddressInput" [formControl]="streetAddressControl" />
+              <label for="streetAddressInput">Street</label>
+            </div>
+          </div>
+          <div class="col-md-6 col-12 mb-3">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="suburbInput" [formControl]="suburbControl" />
+              <label for="surbubInput">Suburb</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-12 mb-3">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="streetAddressInput" [formControl]="cityControl" />
+              <label for="streetAddressInput">City</label>
+            </div>
+          </div>
+          <div class="col-md-6 col-12 mb-3">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="streetAddressInput" [formControl]="countryControl" />
+              <label for="streetAddressInput">Country</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-12 mb-3">
+    <div class="card">
+      <div class="card-header">
+        <h5>Personal Details</h5>
+      </div>
+
+      <div class="card-body">
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="dobInput" [formControl]="dobControl" />
+          <label for="dobInput">Date Of Birth</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="maritalStatusInput" [formControl]="maritalStatusControl" />
+          <label for="maritalStatusInput">Marital Status</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="nationalityInput" [formControl]="nationalityControl" />
+          <label for="nationalityInput">Nationality</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="occupationInput" [formControl]="occupationControl" />
+          <label for="occupationInput">Occupation</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" id="dependentsInput" [formControl]="dependentsControl" />
+          <label for="dependentsInput">Number of Dependents</label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-outline-secondaty">Submit</button>
+</div>
