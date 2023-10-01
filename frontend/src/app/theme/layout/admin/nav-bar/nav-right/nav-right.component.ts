@@ -1,3 +1,4 @@
+import { AuthService } from '@ui-core/services/auth.service';
 // Angular import
 import { Component } from '@angular/core';
 
@@ -6,4 +7,14 @@ import { Component } from '@angular/core';
   templateUrl: './nav-right.component.html',
   styleUrls: ['./nav-right.component.scss']
 })
-export class NavRightComponent {}
+export class NavRightComponent {
+  fullName;
+
+  constructor(private authService: AuthService) {
+    this.fullName = this.authService.getFullName;
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+}

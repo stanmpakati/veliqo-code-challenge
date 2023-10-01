@@ -45,7 +45,7 @@ class AuthService(
 
     val user: User = userRepository.findByEmail(request.email)?: throw Exception("Username Password incorrect")
 
-    return LoginResponse(jwtTokenProvider.generateToken(user))
+    return LoginResponse(jwtTokenProvider.generateToken(user), UserDto(user))
   }
 
   fun verify(token: String): Boolean {

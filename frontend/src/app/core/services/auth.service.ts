@@ -53,17 +53,16 @@ export class AuthService {
     return localStorage.getItem('last_name');
   }
 
-  // get getUserRole(): UserRole {
-  //   const userRole = localStorage.getItem('user_role');
-  //   return userRole ?? 'ROLE_CUSTOMER';
-  // }
+  get getFullName(): string | null {
+    return this.getFirstName + ' ' + this.getLastName;
+  }
 
   public loginUser(authDetails: AuthDetails, returnUrl: string): Observable<boolean> {
     // Clearing all previous auth details
     this.clearAuthData();
 
     // Login at db
-    return this.http.post<{ token: string }>(`${authUrl}/auth/login`, authDetails).pipe(
+    return this.http.post<{ token: string; user: User }>(`${authUrl}/auth/login`, authDetails).pipe(
       map((response) => {
         if (response.token) {
           this.authStatusListener.next(true);
@@ -72,11 +71,19 @@ export class AuthService {
 
           if (decodedString.roles.includes(UserRole.APPLICANT)) {
             console.log('applicant');
-            returnUrl = '/profile';
+            returnUrl = '/user/profile';
           }
 
           // Save to local storage
-          this.saveAuthData(response.token, 'Bearer', decodedString.sub, decodedString.exp, decodedString.roles);
+          this.saveAuthData(
+            response.token,
+            response.user.firstName,
+            response.user.lastName,
+            'Bearer',
+            decodedString.sub,
+            decodedString.exp,
+            decodedString.roles
+          );
 
           this.alertService.showSuccess('Login Successful');
 
@@ -86,7 +93,7 @@ export class AuthService {
             return true;
           }
           // Otherwise go to homepage
-          this.router.navigateByUrl('/default');
+          this.router.navigateByUrl('/user/applications');
           return true;
         }
         return false;
@@ -108,7 +115,7 @@ export class AuthService {
 
     this.alertService.showInfo('You have been logged out', 'End of Session');
 
-    this.router.navigateByUrl('/auth');
+    this.router.navigateByUrl('/auth/login');
   }
 
   public getProfile() {
@@ -121,9 +128,19 @@ export class AuthService {
     return JSON.parse(window.atob(payload));
   }
 
-  private saveAuthData(access_token: string, token_prefix: string, email: string, expiration: number, role: UserRole[]) {
+  private saveAuthData(
+    access_token: string,
+    firstName: string,
+    lastName: string,
+    token_prefix: string,
+    email: string,
+    expiration: number,
+    role: UserRole[]
+  ) {
     if (isPlatformBrowser(this.ssrService.platformId)) {
       localStorage.setItem('email', email);
+      localStorage.setItem('first_name', firstName);
+      localStorage.setItem('last_name', lastName);
       localStorage.setItem('access_token', access_token);
       localStorage.setItem('token_type', token_prefix);
       localStorage.setItem('expiration_date', JSON.stringify(expiration));
