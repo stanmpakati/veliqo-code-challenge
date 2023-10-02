@@ -14,8 +14,8 @@ import java.util.Optional;
 public class GlobalExceptionHandler {
 
   @ExceptionHandler(CustomException.class)
-  public ResponseEntity<CustomException> handleCustomException(CustomException e) {
-    return ResponseEntity.status(e.getHttpStatus()).body(new CustomException(e.getHttpStatus(), e.getMessage()));
+  public ResponseEntity<ExceptionTemplate> handleCustomException(CustomException e) {
+    return ResponseEntity.status(e.getHttpStatus()).body(new ExceptionTemplate(e.getHttpStatus().toString(), e.getMessage()));
   }
 
   @ExceptionHandler(NullPointerException.class)

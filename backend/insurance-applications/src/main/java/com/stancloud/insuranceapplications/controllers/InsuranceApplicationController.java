@@ -1,10 +1,10 @@
 package com.stancloud.insuranceapplications.controllers;
 
-import com.stancloud.insuranceapplications.dto.InsuranceApplication;
-import com.stancloud.insuranceapplications.dto.InsuranceApplicationDto;
-import com.stancloud.insuranceapplications.dto.InsuranceApplicationUpdateRequest;
-import com.stancloud.insuranceapplications.models.ApprovalStatus;
-import com.stancloud.insuranceapplications.models.Currency;
+import com.stancloud.insuranceapplications.dto.insuranceApplications.InsuranceApplicationRequest;
+import com.stancloud.insuranceapplications.dto.insuranceApplications.InsuranceApplicationDto;
+import com.stancloud.insuranceapplications.dto.insuranceApplications.InsuranceApplicationUpdateRequest;
+import com.stancloud.insuranceapplications.models.enums.ApprovalStatus;
+import com.stancloud.insuranceapplications.models.enums.Currency;
 import com.stancloud.insuranceapplications.models.InsuranceType;
 import com.stancloud.insuranceapplications.services.InsuranceApplicationService;
 import org.springframework.data.domain.PageImpl;
@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/insurance-application")
@@ -26,25 +25,22 @@ public class InsuranceApplicationController {
 
   @PostMapping()
   @ResponseStatus(HttpStatus.CREATED)
-  public InsuranceApplicationDto createApplication(InsuranceApplication insuranceApplication) {
-    return insuranceApplicationService.createApplication(insuranceApplication);
+  public InsuranceApplicationDto createApplication(@RequestBody InsuranceApplicationRequest insuranceApplicationRequest) {
+    return insuranceApplicationService.createApplication(insuranceApplicationRequest);
   }
 
   @GetMapping("{applicationId}")
-  public InsuranceApplicationDto getApplication(Long applicationId) {
+  public InsuranceApplicationDto getApplication(@PathVariable Long applicationId) {
     return insuranceApplicationService.getApplication(applicationId);
   }
 
   @GetMapping()
   public PageImpl<InsuranceApplicationDto> getApplications(
-      @RequestParam(name = "name", required = false) String name,
       @RequestParam(name = "applicantId", required = false) Long applicantId,
       @RequestParam(name = "approvedBy", required = false) Long approvedBy,
       @RequestParam(name = "currency", required = false) Currency currency,
-      @RequestParam(name = "insuranceType", required = false) InsuranceType insuranceType,
+      @RequestParam(name = "insuranceType", required = false) Long insuranceType,
       @RequestParam(name = "approvalStatus", required = false) ApprovalStatus approvalStatus,
-      @RequestParam(name = "maxAmount", defaultValue =  "17000000000000000000000000000000000000000000000000000000000000000000000000000000000") double maxAmount,
-      @RequestParam(name = "minAmount", defaultValue = "0") double minAmount,
       @RequestParam(name = "approvalDateFrom", defaultValue = "1971-01-01" ) @DateTimeFormat(pattern = "yyyy-MM-dd") Date approvalDateFrom,
       @RequestParam(name = "approvalDateTo", defaultValue = "2100-01-01" ) @DateTimeFormat(pattern = "yyyy-MM-dd") Date approvalDateTo,
       @RequestParam(name = "createdFrom", defaultValue = "1971-01-01" ) @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdFrom,
@@ -55,7 +51,7 @@ public class InsuranceApplicationController {
       @RequestParam(name = "sortDir", required = false, defaultValue = "desc") String sortDir
   ) {
     return insuranceApplicationService.getApplications(
-        name, applicantId, approvedBy, maxAmount, minAmount, currency, insuranceType, approvalStatus, approvalDateFrom, approvalDateTo, createdFrom, createdTo, page, size, sortBy, sortDir
+        applicantId, approvedBy, currency, insuranceType, approvalStatus, approvalDateFrom, approvalDateTo, createdFrom, createdTo, page, size, sortBy, sortDir
     );
   }
 

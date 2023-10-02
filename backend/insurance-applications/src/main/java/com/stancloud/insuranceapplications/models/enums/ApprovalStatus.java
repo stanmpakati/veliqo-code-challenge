@@ -1,4 +1,4 @@
-package com.stancloud.insuranceapplications.models;
+package com.stancloud.insuranceapplications.models.enums;
 
 public enum ApprovalStatus {
   PENDING,
