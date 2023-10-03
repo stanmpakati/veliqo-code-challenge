@@ -1,11 +1,13 @@
 package com.stancloud.authenticationservice.auth
 
-import com.stancloud.authenticationservice.dto.LoginRequest
-import com.stancloud.authenticationservice.dto.LoginResponse
-import com.stancloud.authenticationservice.dto.SignupRequest
-import com.stancloud.authenticationservice.dto.UserDto
+import com.stancloud.authenticationservice.applicant.Applicant
+import com.stancloud.authenticationservice.applicant.ApplicantRepository
+import com.stancloud.authenticationservice.user.dto.LoginRequest
+import com.stancloud.authenticationservice.user.dto.LoginResponse
+import com.stancloud.authenticationservice.user.dto.SignupRequest
+import com.stancloud.authenticationservice.user.dto.UserDto
 import com.stancloud.authenticationservice.config.JwtService
-import com.stancloud.authenticationservice.model.User
+import com.stancloud.authenticationservice.user.User
 import com.stancloud.authenticationservice.user.UserRepository
 import com.stancloud.authenticationservice.user.UserRole
 import org.springframework.security.authentication.AuthenticationManager
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service
 @Service
 class AuthService(
   private val userRepository: UserRepository,
+  private val applicantRepository: ApplicantRepository,
   private val passwordEncoder: PasswordEncoder,
   private val authenticationManager: AuthenticationManager,
   private val jwtTokenProvider: JwtService,
@@ -33,7 +36,13 @@ class AuthService(
     request.roles ?: setOf(UserRole.APPLICANT),
   )
 
-    return UserDto(this.userRepository.save(user))
+    val savedUser = this.userRepository.save(user)
+
+    if(savedUser.roles.contains(UserRole.APPLICANT)) {
+      this.applicantRepository.save(Applicant(savedUser))
+    }
+
+    return UserDto(savedUser)
   }
 
   fun login(

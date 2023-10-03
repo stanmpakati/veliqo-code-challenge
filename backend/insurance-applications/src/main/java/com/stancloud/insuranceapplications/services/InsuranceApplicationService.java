@@ -108,7 +108,8 @@ public class InsuranceApplicationService {
     );
 
     Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy).descending());
-    Page<InsuranceApplication> insurancePage = applicationsRepository.findAll(bookSpec, pageable);
+//    Page<InsuranceApplication> insurancePage = applicationsRepository.findAll(bookSpec, pageable);
+    Page<InsuranceApplication> insurancePage = applicationsRepository.findAll(pageable);
 
     List<InsuranceApplicationDto> dtos = InsuranceApplicationDto.of(insurancePage.getContent());
 

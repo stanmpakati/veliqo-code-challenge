@@ -1,4 +1,4 @@
-package com.stancloud.authenticationservice.model
+package com.stancloud.authenticationservice.user
 
 import com.stancloud.authenticationservice.user.UserRole
 import jakarta.persistence.*
@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import java.time.LocalDateTime
 
 @Entity
-class User (
+data class User (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

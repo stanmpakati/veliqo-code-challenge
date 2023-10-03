@@ -1,4 +1,4 @@
-package com.stancloud.authenticationservice.dto
+package com.stancloud.authenticationservice.user.dto
 
 import com.stancloud.authenticationservice.user.UserRole
 import org.jetbrains.annotations.NotNull

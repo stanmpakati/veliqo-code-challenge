@@ -1,9 +1,9 @@
 package com.stancloud.authenticationservice.auth
 
-import com.stancloud.authenticationservice.dto.LoginRequest
-import com.stancloud.authenticationservice.dto.LoginResponse
-import com.stancloud.authenticationservice.dto.SignupRequest
-import com.stancloud.authenticationservice.dto.UserDto
+import com.stancloud.authenticationservice.user.dto.LoginRequest
+import com.stancloud.authenticationservice.user.dto.LoginResponse
+import com.stancloud.authenticationservice.user.dto.SignupRequest
+import com.stancloud.authenticationservice.user.dto.UserDto
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -26,7 +26,7 @@ class AuthController(
   @PostMapping("/login")
   fun login(
     @Valid @RequestBody request: LoginRequest,
-  ): LoginResponse{
+  ): LoginResponse {
     return authService.login(request)
 //    return response.token
   }

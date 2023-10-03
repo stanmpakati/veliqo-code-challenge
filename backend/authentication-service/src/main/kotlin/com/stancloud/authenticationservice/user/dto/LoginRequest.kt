@@ -1,4 +1,4 @@
-package com.stancloud.authenticationservice.dto
+package com.stancloud.authenticationservice.user.dto
 
 data class LoginRequest(
   val email: String,

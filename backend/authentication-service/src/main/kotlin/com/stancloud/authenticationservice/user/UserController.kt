@@ -1,6 +1,6 @@
 package com.stancloud.authenticationservice.user
 
-import com.stancloud.authenticationservice.dto.SignupRequest
+import com.stancloud.authenticationservice.user.dto.SignupRequest
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.*
 

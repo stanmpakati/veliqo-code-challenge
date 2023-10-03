@@ -1,6 +1,6 @@
-package com.stancloud.authenticationservice.dto
+package com.stancloud.authenticationservice.user.dto
 
-import com.stancloud.authenticationservice.model.User
+import com.stancloud.authenticationservice.user.User
 import java.time.LocalDateTime
 
 data class UserDto(
