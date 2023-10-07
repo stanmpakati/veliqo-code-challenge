@@ -1,5 +1,7 @@
 package com.stancloud.insuranceapplications.services;
 
+import com.stancloud.insuranceapplications.dto.PaginatedResponse;
+import com.stancloud.insuranceapplications.dto.PaginationLink;
 import com.stancloud.insuranceapplications.dto.insuranceType.InsuranceTypeDto;
 import com.stancloud.insuranceapplications.dto.insuranceType.InsuranceTypeRequest;
 import com.stancloud.insuranceapplications.dto.insuranceType.InsuranceTypeUpdateRequest;
@@ -10,7 +12,7 @@ import com.stancloud.insuranceapplications.models.enums.Currency;
 import com.stancloud.insuranceapplications.repository.InsuranceRepository;
 import com.stancloud.insuranceapplications.response.CustomException;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Example;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,12 +43,21 @@ public class InsuranceTypeService {
     return InsuranceTypeDto.of(insuranceType);
   }
 
-  public List<InsuranceTypeDto> getAllInsurance(Boolean isActive, Currency currency, Boolean hasExpiryDate) {
+  public PaginatedResponse<InsuranceTypeDto> getAllInsurance(Boolean isActive, Currency currency, Boolean hasExpiryDate, int page, int size) {
     Example<InsuranceType> insuranceTypeExample = getInsurancexample(isActive, currency, hasExpiryDate);
 
 //    List<InsuranceType> insuranceTypes = insuranceRepository.findAll(insuranceTypeExample);
-    List<InsuranceType> insuranceTypes = insuranceRepository.findAll();
-    return InsuranceTypeDto.of(insuranceTypes);
+    Pageable pageable = PageRequest.of(page - 1, size, Sort.by("name").descending());
+    Page<InsuranceType> insuranceTypePage = insuranceRepository.findAll(pageable);
+
+
+    PaginationLink link = new PaginationLink(
+        insuranceTypePage.getTotalPages(),
+        insuranceTypePage.getTotalElements(),
+        page,
+        size);
+
+    return new PaginatedResponse<>(InsuranceTypeDto.of(insuranceTypePage.getContent()), link);
   }
 
   public InsuranceTypeDto updateInsurance(Long insuranceId, InsuranceTypeUpdateRequest insuranceTypeUpdate) {

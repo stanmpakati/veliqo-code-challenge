@@ -4,6 +4,6 @@ public enum PaymentPeriod {
   DAILY,
   WEEKLY,
   MONTHLY,
-  YEAR_QUATER,
+  YEAR_QUARTER,
   YEARLY;
 }

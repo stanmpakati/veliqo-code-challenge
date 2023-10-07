@@ -1,5 +1,6 @@
 package com.stancloud.insuranceapplications.controllers;
 
+import com.stancloud.insuranceapplications.dto.PaginatedResponse;
 import com.stancloud.insuranceapplications.dto.insuranceType.InsuranceTypeDto;
 import com.stancloud.insuranceapplications.dto.insuranceType.InsuranceTypeRequest;
 import com.stancloud.insuranceapplications.dto.insuranceType.InsuranceTypeUpdateRequest;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("**")
 @RestController
 @RequestMapping("/api/v1/insurance-type")
 public class InsuranceTypeController {
@@ -31,12 +33,14 @@ public class InsuranceTypeController {
   }
 
   @GetMapping()
-  public List<InsuranceTypeDto> getInsuranceTypes(
+  public PaginatedResponse<InsuranceTypeDto> getInsuranceTypes(
       @RequestParam(value = "isActive", required = false) Boolean isActive,
       @RequestParam(value = "currency", required = false) Currency currency,
-      @RequestParam(value = "hasExpiryDate", required = false) Boolean hasExpiryDate
+      @RequestParam(value = "hasExpiryDate", required = false) Boolean hasExpiryDate,
+      @RequestParam(defaultValue = "1") int page,
+      @RequestParam(defaultValue = "10") int size
     ) {
-    return insuranceTypeService.getAllInsurance(isActive, currency, hasExpiryDate);
+    return insuranceTypeService.getAllInsurance(isActive, currency, hasExpiryDate, page, size);
   }
 
   @PutMapping("{insuranceId}")

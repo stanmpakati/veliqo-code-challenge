@@ -1,5 +1,7 @@
 package com.stancloud.insuranceapplications.services;
 
+import com.stancloud.insuranceapplications.dto.PaginatedResponse;
+import com.stancloud.insuranceapplications.dto.PaginationLink;
 import com.stancloud.insuranceapplications.dto.insuranceApplications.InsuranceApplicationRequest;
 import com.stancloud.insuranceapplications.dto.insuranceApplications.InsuranceApplicationDto;
 import com.stancloud.insuranceapplications.dto.insuranceApplications.InsuranceApplicationUpdateRequest;
@@ -82,7 +84,7 @@ public class InsuranceApplicationService {
     applicationsRepository.delete(insuranceApplication);
   }
 
-  public PageImpl<InsuranceApplicationDto> getApplications(
+  public PaginatedResponse<InsuranceApplicationDto> getApplications(
        Long applicantId,
        Long approvedBy,
        Currency currency,
@@ -111,9 +113,14 @@ public class InsuranceApplicationService {
 //    Page<InsuranceApplication> insurancePage = applicationsRepository.findAll(bookSpec, pageable);
     Page<InsuranceApplication> insurancePage = applicationsRepository.findAll(pageable);
 
-    List<InsuranceApplicationDto> dtos = InsuranceApplicationDto.of(insurancePage.getContent());
 
-    return new PageImpl<>(dtos, pageable, insurancePage.getTotalElements());
+    PaginationLink link = new PaginationLink(
+        insurancePage.getTotalPages(),
+        insurancePage.getTotalElements(),
+        page,
+        size);
+
+    return new PaginatedResponse<>(InsuranceApplicationDto.of(insurancePage.getContent()), link);
   }
 
   @NotNull

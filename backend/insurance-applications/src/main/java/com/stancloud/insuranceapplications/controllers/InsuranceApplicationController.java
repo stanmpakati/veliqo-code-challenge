@@ -1,5 +1,6 @@
 package com.stancloud.insuranceapplications.controllers;
 
+import com.stancloud.insuranceapplications.dto.PaginatedResponse;
 import com.stancloud.insuranceapplications.dto.insuranceApplications.InsuranceApplicationRequest;
 import com.stancloud.insuranceapplications.dto.insuranceApplications.InsuranceApplicationDto;
 import com.stancloud.insuranceapplications.dto.insuranceApplications.InsuranceApplicationUpdateRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+@CrossOrigin("**")
 @RestController
 @RequestMapping("/api/v1/insurance-application")
 public class InsuranceApplicationController {
@@ -35,7 +37,7 @@ public class InsuranceApplicationController {
   }
 
   @GetMapping()
-  public PageImpl<InsuranceApplicationDto> getApplications(
+  public PaginatedResponse<InsuranceApplicationDto> getApplications(
       @RequestParam(name = "applicantId", required = false) Long applicantId,
       @RequestParam(name = "approvedBy", required = false) Long approvedBy,
       @RequestParam(name = "currency", required = false) Currency currency,
