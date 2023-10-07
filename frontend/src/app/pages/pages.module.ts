@@ -12,13 +12,11 @@ import { NavContentComponent } from '../theme/layout/admin/navigation/nav-conten
 import { NavGroupComponent } from '../theme/layout/admin/navigation/nav-content/nav-group/nav-group.component';
 import { NavItemComponent } from '../theme/layout/admin/navigation/nav-content/nav-item/nav-item.component';
 import { NavigationComponent } from '../theme/layout/admin/navigation/navigation.component';
-import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { SharedModule } from '../theme/shared/shared.module';
 import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
-    UserProfileComponent,
     AdminComponent,
     NavBarComponent,
     NavLeftComponent,

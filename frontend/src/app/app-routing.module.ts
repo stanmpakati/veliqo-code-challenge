@@ -39,6 +39,11 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     component: AdminComponent,
     loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule)
+  },
+  {
+    path: '',
+    redirectTo: '/user/applications',
+    pathMatch: 'full'
   }
 ];
 

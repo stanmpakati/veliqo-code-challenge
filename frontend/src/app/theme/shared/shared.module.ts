@@ -1,3 +1,7 @@
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
 // Angular Imports
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,6 +15,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 
 // bootstrap import
 import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatFormCoreModule } from './mat-form-core.module';
+import { ActionConfirmComponent } from './components/action-confirm/action-confirm.component';
 
 @NgModule({
   imports: [
@@ -23,6 +29,8 @@ import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule } from '@
     NgbNavModule,
     NgbModule,
     NgbCollapseModule,
+    MatFormCoreModule,
+    MatDialogModule,
     NgScrollbarModule
   ],
   exports: [
@@ -38,6 +46,6 @@ import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule } from '@
     NgbCollapseModule,
     NgScrollbarModule
   ],
-  declarations: [SpinnerComponent]
+  declarations: [SpinnerComponent, ActionConfirmComponent]
 })
 export class SharedModule {}

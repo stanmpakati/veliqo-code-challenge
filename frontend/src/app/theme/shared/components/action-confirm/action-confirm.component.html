@@ -1,0 +1,10 @@
+<h1 mat-dialog-title class="text-center"> {{ actionItem.name }}</h1>
+<mat-dialog-content class="text-center">
+  <i class="text-warning ti ti-info-triangle"></i>
+  <h2>Are you Sure?</h2>
+  {{ actionItem.message }}
+</mat-dialog-content>
+<mat-dialog-actions align="center" class="mt-4">
+  <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" (click)="actionConfirm()">{{actionItem.action}}</button>
+</mat-dialog-actions>

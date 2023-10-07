@@ -1,0 +1,61 @@
+<h3 mat-dialog-title>{{isEdit ? 'Edit' : 'Add'}} Application</h3>
+
+<mat-dialog-content>
+  <form [formGroup]="applicationForm">
+    <div class="row">
+      <div class="col-12 mb-3">
+        <mat-form-field>
+          <mat-label>Enter a date to start and end your insurance application</mat-label>
+          <mat-date-range-input [formGroup]="applicationForm" [rangePicker]="picker">
+            <input matStartDate [formControl]="startDateControl" placeholder="Start date">
+            <input matEndDate [formControl]="expiryDateControl" placeholder="End date">
+          </mat-date-range-input>
+          <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+
+          <mat-error *ngIf="startDateControl.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+          <mat-error *ngIf="expiryDateControl.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Insurance Type input -->
+    <div class="row">
+      <div class="col-12 mb-3">
+        <mat-spinner *ngIf="isLoadingTypes" class="form-spinner"></mat-spinner>
+
+        <mat-form-field *ngIf="!isLoadingTypes">
+          <mat-label>Insurance Type</mat-label>
+          <mat-select [formControl]="insuranceTypeControl">
+
+            <mat-option *ngFor="let insurance of insuranceTypes" [value]="insurance.id">
+              <strong>{{insurance.name}}</strong> {{insurance.currency}}{{insurance.amount}}/{{insurance.paymentPeriod}}
+              {{insurance.description}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="insuranceTypeControl.errors?.['required']">
+            Insurance is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <div class="col-12 mb-3">
+          <mat-form-field>
+            <mat-label>Application Plea</mat-label>
+            <input type="text" [formControl]="applicationPleaControl" matInput>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="warn" (click)="dialogRef.close()" [disabled]="isLoading">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="isLoading || applicationForm.invalid">
+    {{isLoading ? 'Loading...' : isEdit ? 'Edit' : 'Add'}}
+  </button>
+</mat-dialog-actions>

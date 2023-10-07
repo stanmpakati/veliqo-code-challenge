@@ -8,6 +8,7 @@ import com.stancloud.insuranceapplications.models.enums.ApprovalStatus;
 import com.stancloud.insuranceapplications.models.enums.Currency;
 import com.stancloud.insuranceapplications.models.InsuranceType;
 import com.stancloud.insuranceapplications.services.InsuranceApplicationService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
-@CrossOrigin("**")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/v1/insurance-application")
 public class InsuranceApplicationController {
@@ -27,7 +28,7 @@ public class InsuranceApplicationController {
 
   @PostMapping()
   @ResponseStatus(HttpStatus.CREATED)
-  public InsuranceApplicationDto createApplication(@RequestBody InsuranceApplicationRequest insuranceApplicationRequest) {
+  public InsuranceApplicationDto createApplication(@Valid  @RequestBody InsuranceApplicationRequest insuranceApplicationRequest) {
     return insuranceApplicationService.createApplication(insuranceApplicationRequest);
   }
 
@@ -36,6 +37,7 @@ public class InsuranceApplicationController {
     return insuranceApplicationService.getApplication(applicationId);
   }
 
+  @CrossOrigin
   @GetMapping()
   public PaginatedResponse<InsuranceApplicationDto> getApplications(
       @RequestParam(name = "applicantId", required = false) Long applicantId,

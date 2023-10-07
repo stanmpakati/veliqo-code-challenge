@@ -39,6 +39,22 @@ $pc-secondary: map-get($preset-colors, 'preset-1', 'secondary');
 @import url('scss/fonts/berry/berry-icons.css'); /** custom font icons - berry **/
 @import 'scss/fonts/tabler-icons.min.css';
 
+// Angular material
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 .logo-img {
   height: 120px;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.cdk-overlay-container {
+  z-index: 9999 !important;
 }

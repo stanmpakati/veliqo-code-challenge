@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivateChild {
   ) {}
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    console.log('hello from auth guard');
     const isAuth = this.authService.getToken;
 
     if (!isAuth || isAuth === null) {

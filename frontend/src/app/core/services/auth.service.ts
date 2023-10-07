@@ -156,6 +156,7 @@ export class AuthService {
       localStorage.removeItem('last_name');
       localStorage.removeItem('access_token');
       localStorage.removeItem('user_roles');
+      localStorage.removeItem('applicant_id');
     }
   }
 }
