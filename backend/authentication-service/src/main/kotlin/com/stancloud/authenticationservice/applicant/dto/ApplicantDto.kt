@@ -10,7 +10,7 @@ import java.util.*
 
 class  ApplicantDto (
   val applicantId: Long?,
-  val user: UserDto,
+  val user: UserDto?,
   val address: Address?,
   val sex: UserSex?,
   val maritalStatus: MaritalStatus?,

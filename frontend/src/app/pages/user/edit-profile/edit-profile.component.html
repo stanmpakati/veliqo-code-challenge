@@ -95,8 +95,17 @@
           </div>
 
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="maritalStatusInput" [formControl]="maritalStatusControl" />
+            <select type="text" class="form-select" id="maritalStatusInput" [formControl]="maritalStatusControl">
+              <option *ngFor="let status of maritalStatuses" [value]="status">{{status}}</option>
+            </select>
             <label for="maritalStatusInput">Marital Status</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <select type="text" class="form-select" id="sexInput" [formControl]="sexControl">
+              <option *ngFor="let sex of sexes" [value]="sex">{{sex}}</option>
+            </select>
+            <label for="sexInput">Sex</label>
           </div>
 
           <div class="form-floating mb-3">
@@ -118,6 +127,6 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-outline-secondaty">Submit</button>
+    <button type="submit" class="btn btn-secondaty">Submit</button>
   </div>
 </form>

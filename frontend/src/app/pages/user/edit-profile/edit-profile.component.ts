@@ -1,6 +1,6 @@
-import { MaritalStatus } from './../../../core/models/user-models';
+import { MaritalStatus, UserSex } from './../../../core/models/user-models';
 import { AlertService } from '@ui-core/services/alert.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Applicant } from '@ui-core/models/user-models';
 import { UserService } from '@ui-core/services/user.service';
@@ -31,10 +31,14 @@ export class EditProfileComponent implements OnInit {
 
   applicant!: Applicant;
 
+  maritalStatuses = Object.keys(MaritalStatus);
+  sexes = Object.keys(UserSex);
+
   constructor(
     private userService: UserService,
     private authService: AuthService,
     private alertService: AlertService,
+    private cdr: ChangeDetectorRef,
     private router: Router
   ) {}
 
@@ -43,6 +47,7 @@ export class EditProfileComponent implements OnInit {
 
     this.userService.getApplicant(this.userService.getApplicantId).subscribe((res) => {
       this.applicant = res;
+      this.cdr.detectChanges();
     });
 
     this.firstNameControl = new FormControl(this.applicant?.user?.firstName, {
@@ -73,7 +78,7 @@ export class EditProfileComponent implements OnInit {
       validators: Validators.required,
       updateOn: 'blur'
     });
-    this.countryControl = new FormControl(this.applicant?.address?.country, {
+    this.countryControl = new FormControl(this.applicant?.address.country, {
       validators: Validators.required,
       updateOn: 'blur'
     });
@@ -106,6 +111,7 @@ export class EditProfileComponent implements OnInit {
       firstName: this.firstNameControl,
       lastName: this.lastNameControl,
       middleNames: this.middleNamesControl,
+      mobileNumber: this.phoneNumberControl,
       street: this.streetAddressControl,
       suburb: this.suburbControl,
       city: this.cityControl,
@@ -119,30 +125,8 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit() {
     console.log('clicked');
-    console.log('got here: ');
-    let updatingUser = null;
-    if (this.applicantForm.value.firstName) updatingUser['firstName'] = this.applicantForm.value.firstName;
-    if (this.applicantForm.value.lastName) updatingUser['lastName'] = this.applicantForm.value.lastName;
-    if (this.applicantForm.value.middleNames) updatingUser['middleNames'] = this.applicantForm.value.middleNames;
-
-    let updatingAddress = null;
-    if (this.applicantForm.value.street) updatingAddress['street'] = this.applicantForm.value.street;
-    if (this.applicantForm.value.suburb) updatingAddress['suburb'] = this.applicantForm.value.suburb;
-    if (this.applicantForm.value.city) updatingAddress['city'] = this.applicantForm.value.city;
-    if (this.applicantForm.value.country) updatingAddress['country'] = this.applicantForm.value.country;
-
-    let updatedApplicant = {};
-    if (this.applicantForm.value.sex) updatedApplicant['sex'] = this.applicantForm.value.sex;
-    if (this.applicantForm.value.MaritalStatus) updatedApplicant['maritalStatus'] = this.applicantForm.value.maritalStatus;
-    if (this.applicantForm.value.occupation) updatedApplicant['occupation'] = this.applicantForm.value.occupation;
-    if (this.applicantForm.value.numberOfDependents) updatedApplicant['numberOfDependents'] = this.applicantForm.value.numberOfDependents;
-    if (this.applicantForm.value.phoneNumber) updatedApplicant['mobileNumber'] = this.applicantForm.value.phoneNumber;
-    if (this.applicantForm.value.dob) updatedApplicant['dob'] = this.applicantForm.value.dob;
-    if (this.applicantForm.value.nationality) updatedApplicant['nationality'] = this.applicantForm.value.nationality;
-
-    if (updatingUser !== null) updatedApplicant['user'] = updatingUser;
-    if (updatingAddress !== null) updatedApplicant['address'] = updatingAddress;
-
+    console.log('got here: ', this.applicantForm.value);
+    let updatedApplicant = { ...this.applicantForm.value };
     console.log(updatedApplicant);
 
     this.userService.updateApplicant(this.applicant.applicantId, updatedApplicant).subscribe((res) => {

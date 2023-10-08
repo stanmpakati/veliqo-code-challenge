@@ -1,5 +1,6 @@
 package com.stancloud.authenticationservice.applicant
 
+import com.stancloud.authenticationservice.user.User
 import jakarta.persistence.*
 import org.hibernate.Hibernate
 
@@ -14,6 +15,8 @@ data class Address (
   val city: String?,
   val country: String?,
   val postalCode: String?,
+  @OneToOne
+  val applicant: Applicant,
 ) {
   override fun equals(other: Any?): Boolean {
     if (this === other) return true

@@ -27,7 +27,7 @@ class ApplicantController(
   }
 
   @PutMapping("/{applicantId}")
-  fun updateApplicant(@PathVariable applicantId: Long, @RequestBody applicant: ApplicantDto): ApplicantDto {
+  fun updateApplicant(@PathVariable applicantId: Long, @RequestBody applicant: ApplicantUpdateDto): ApplicantDto {
     return applicantService.updateApplicant(applicantId, applicant)
   }
 

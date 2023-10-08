@@ -137,11 +137,12 @@ export class UserInsuranceApplicationsComponent implements OnInit, AfterViewInit
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.insuranceService.deleteApplication(application.id).subscribe((res) => {
-          this.loadData,
-            this.alertService.showInfo(
-              `You have successfully cancelled your insurance for ${application.insuranceType.name}`,
-              'Insurance cancel successful'
-            );
+          this.loadData;
+          this.alertService.showInfo(
+            `You have successfully cancelled your insurance for ${application.insuranceType.name}`,
+            'Insurance cancel successful'
+          );
+          this.cdr.detectChanges();
         });
       }
     });
