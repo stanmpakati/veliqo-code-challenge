@@ -42,7 +42,7 @@ export interface RegistrationDetails {
 }
 
 export interface DecodedToken {
-  roles: UserRole[];
+  roles: string[];
   userId: number;
   sub: string;
   iat: Date;

@@ -1,0 +1,158 @@
+<h2>View Application</h2>
+<div class="row">
+
+  <div class="col-md-6 col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3>Insurance</h3>
+      </div>
+
+      <div class="card-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+  <mat-spinner *ngIf="false" class="table-spinner"></mat-spinner>
+
+  <div *ngIf="true" class="mt-4">
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-md-5">
+          <div class="row">
+            <div class="col-12">
+              <div class="card card-profile">
+                <div class="card-avatar p-3">
+                  <h4 class="card-title mb-2">Applicant</h4>
+                  <div class="d-inline-flex">
+                    <a href="javascript:void(0)">
+                      <img class="img" src="assets/images/user/face-placeholder.png" alt="face" class="rounded-circle"
+                        width="100" />
+                    </a>
+                    <span class="mx-3">
+                      <div>
+                        {{ applicant.user.firstName }} {{ applicant.user.middleNames }} {{ applicant.user.lastName }}
+                      </div>
+                      <div>{{ applicant.user.email }}</div>
+                      <a mat-flat-button color="primary" [routerLink]="'/user/profile/'" *ngIf="true">
+                        View Profile
+                      </a>
+                    </span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title mb-4">Application</h4>
+                  <div class="justify-content-center">
+                    <div *ngIf="application?.applicationPlea">
+                      <h5 class="text-secondary">Application Plea</h5>
+                      <p> {{ application?.applicationPlea }}</p>
+                    </div>
+                    <div *ngIf="application?.startDate">
+                      <h5 class="text-secondary">Insurance Active Range</h5>
+                      <p> {{ application?.startDate | date }} - {{ application?.expiryDate | date }}</p>
+                    </div>
+                    <div>
+                      <h5 class="text-secondary">Approval Status</h5>
+                      <p> {{ application?.status }}</p>
+                    </div>
+                    <div *ngIf="application?.denialNote">
+                      <h5 class="text-secondary">Denial Note</h5>
+                      <p> {{ application?.denialNote }}</p>
+                    </div>
+                    <div *ngIf="application?.createdAt">
+                      <h5 class="text-secondary">Date Created</h5>
+                      <p> {{ application?.createdAt | date }}</p>
+                    </div>
+
+                    <div class="d-inline-flex">
+                      <button class="btn btn-success" (click)="approveApplication()">Approve</button>
+                      <button class="btn btn-danger mx-4" (click)="denyApplication()">Reject</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <div class="card card-profile-proper">
+            <div class="card-header">
+              <h2 class="card-title">Insurance Type</h2>
+              <p class="card-category">User's profile</p>
+            </div>
+            <div class="card-body">
+              <table class="table table-borderless">
+                <tbody>
+                  <tr>
+                    <td>User Id:</td>
+                    <td>
+                      <strong class="color-primary"> searchResult.userId </strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>First Name: </td>
+                    <td>
+                      <strong class="color-primary"> searchResult.firstName </strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="true">
+                    <td>Middle Names: </td>
+                    <td>
+                      <strong class="color-primary"> searchResult.middleNames </strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Last Name: </td>
+                    <td>
+                      <strong class="color-primary"> searchResult.lastName </strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Email: </td>
+                    <td>
+                      <strong class="color-primary"> searchResult.email </strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Roles:</td>
+                    <td>
+                      <strong class="color-primary"> searchResult.roles </strong>
+                      <mat-chip class="badge badge-pill p-2 ml-2 chip-button" color="accent" selected>Edit Roles
+                      </mat-chip>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Sign Up Source:</td>
+                    <td>
+                      <strong class="color-primary"> searchResult.signupSource || 'NOT RECORDED' | splitSnakeCase
+                      </strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Signed up:</td>
+                    <td>
+                      <strong class="color-primary"> searchResult.createdAt | date </strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Last Profile Update:</td>
+                    <td>
+                      <strong class="color-primary"> searchResult.updatedAt | date </strong>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- <pre>searchResult | json</pre> -->

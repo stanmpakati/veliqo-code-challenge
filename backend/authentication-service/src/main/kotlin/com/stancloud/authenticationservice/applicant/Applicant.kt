@@ -7,7 +7,7 @@ import com.stancloud.authenticationservice.user.User
 import jakarta.persistence.*
 import java.util.*
 
-
+@Entity
 data class Applicant (
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

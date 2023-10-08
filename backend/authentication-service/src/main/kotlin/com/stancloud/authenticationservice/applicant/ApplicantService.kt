@@ -1,15 +1,24 @@
 package com.stancloud.authenticationservice.applicant
 
 import com.stancloud.authenticationservice.applicant.dto.ApplicantDto
+import com.stancloud.authenticationservice.user.UserRepository
 import org.springframework.stereotype.Service
 import kotlin.jvm.optionals.getOrElse
 
 @Service
 class ApplicantService(
-  private val applicantRepository: ApplicantRepository
+  private val applicantRepository: ApplicantRepository,
 ) {
   fun getApplicant(applicantId: Long): ApplicantDto {
     val applicant = applicantRepository.findById(applicantId)
+      .getOrElse { throw Exception("Applicant Not Found") };
+
+    return ApplicantDto(applicant)
+  }
+
+  fun getApplicantByUser(userId: Long): ApplicantDto {
+
+    val applicant = applicantRepository.findByUser_Id(userId)
       .getOrElse { throw Exception("Applicant Not Found") };
 
     return ApplicantDto(applicant)

@@ -19,21 +19,22 @@ export class UserService {
   ) {}
 
   get getApplicantId() {
-    return isPlatformBrowser(this.ssrService.platformId) ? localStorage.getItem('applicant_id') : null;
+    return isPlatformBrowser(this.ssrService.platformId) ? +localStorage.getItem('applicant_id') : null;
   }
 
-  getApplicant(userId: number) {
-    return this.http.get<Applicant>(`${applicantUrl}/${userId}`).pipe(
-      map((applicant) => {
-        if (isPlatformBrowser(this.ssrService.platformId)) {
-          localStorage.setItem('applicant_id', `${applicant.applicantId}`);
-        }
-        return applicant;
-      })
-    );
+  get getUserId(): number {
+    return isPlatformBrowser(this.ssrService.platformId) ? +localStorage.getItem('user_id') : null;
   }
 
-  updateApplicant(applicantId: number, applicantUpdate: Applicant) {
+  getApplicant(applicantId: number) {
+    return this.http.get<Applicant>(`${applicantUrl}/${applicantId}`);
+  }
+
+  getApplicantByUserId(userId: number) {
+    return this.http.get<Applicant>(`${applicantUrl}/get-by-user-id/${userId}`);
+  }
+
+  updateApplicant(applicantId: number, applicantUpdate: any) {
     return this.http.put<Applicant>(`${applicantUrl}/${applicantId}`, applicantUpdate);
   }
 }

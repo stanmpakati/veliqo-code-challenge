@@ -1,6 +1,8 @@
+import { UserService } from '@ui-core/services/user.service';
 import { Location, LocationStrategy } from '@angular/common';
 import { Component, NgZone } from '@angular/core';
-import { Applicant, MaritalStatus, UserSex } from '@ui-core/models/user-models';
+import { ActivatedRoute } from '@angular/router';
+import { Applicant, MaritalStatus, User, UserSex } from '@ui-core/models/user-models';
 import { BerryConfig } from 'src/app/app-config';
 
 @Component({
@@ -13,6 +15,9 @@ export class UserProfileComponent {
   navCollapsed: boolean;
   navCollapsedMob = false;
   windowWidth: number;
+  applicantId: number;
+  isLoading = false;
+
   applicant: Applicant = {
     applicantId: 1,
     dob: new Date(),
@@ -39,35 +44,36 @@ export class UserProfileComponent {
 
   // Constructor
   constructor(
-    private zone: NgZone,
-    private location: Location,
-    private locationStrategy: LocationStrategy
+    private route: ActivatedRoute,
+    private userService: UserService
   ) {
-    this.berryConfig = BerryConfig;
+    this.route.params.subscribe((params) => {
+      console.log({ params });
 
-    let current_url = this.location.path();
-    const baseHref = this.locationStrategy.getBaseHref();
-    if (baseHref) {
-      current_url = baseHref + this.location.path();
-    }
+      if (params['applicantId'] == null) {
+        this.applicantId = this.userService.getApplicantId;
+      } else {
+        this.applicantId = params['applicantId'];
+      }
 
-    if (current_url === baseHref + '/layout/theme-compact' || current_url === baseHref + '/layout/box') {
-      this.berryConfig.isCollapse_menu = true;
-    }
-
-    this.windowWidth = window.innerWidth;
-    this.navCollapsed = this.windowWidth >= 1025 ? BerryConfig.isCollapse_menu : false;
+      this.loadData();
+    });
   }
 
-  // public method
-  navMobClick() {
-    if (this.navCollapsedMob && !document.querySelector('app-navigation.coded-navbar')?.classList.contains('mob-open')) {
-      this.navCollapsedMob = !this.navCollapsedMob;
-      setTimeout(() => {
-        this.navCollapsedMob = !this.navCollapsedMob;
-      }, 100);
-    } else {
-      this.navCollapsedMob = !this.navCollapsedMob;
-    }
+  private loadData() {
+    this.isLoading = true;
+
+    this.userService.getApplicant(this.applicantId).subscribe({
+      next: (data) => {
+        console.log('res', data);
+        this.applicant = data;
+      },
+      error: () => {
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
   }
 }

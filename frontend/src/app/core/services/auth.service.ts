@@ -1,3 +1,4 @@
+import { UserService } from '@ui-core/services/user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '@ui-environments/environment';
 import { isPlatformBrowser } from '@angular/common';
@@ -21,6 +22,7 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private ssrService: SSRService,
+    private userService: UserService,
     private alertService: AlertService
   ) {}
 
@@ -53,6 +55,10 @@ export class AuthService {
     return localStorage.getItem('last_name');
   }
 
+  get getEmail(): string | null {
+    return localStorage.getItem('email');
+  }
+
   get getFullName(): string | null {
     return this.getFirstName + ' ' + this.getLastName;
   }
@@ -69,11 +75,6 @@ export class AuthService {
 
           const decodedString: DecodedToken = this.decodeToken(response.token);
 
-          if (decodedString.roles.includes(UserRole.APPLICANT)) {
-            console.log('applicant');
-            returnUrl = '/user/profile';
-          }
-
           // Save to local storage
           this.saveAuthData(
             response.token,
@@ -81,9 +82,21 @@ export class AuthService {
             response.user.lastName,
             'Bearer',
             decodedString.sub,
+            decodedString.userId,
             decodedString.exp,
             decodedString.roles
           );
+
+          if (decodedString.roles.includes('APPLICANT')) {
+            console.log('applicant');
+            this.userService.getApplicantByUserId(decodedString.userId).subscribe((applicant) => {
+              if (isPlatformBrowser(this.ssrService.platformId)) {
+                localStorage.setItem('applicant_id', applicant.applicantId.toString());
+              }
+            });
+
+            returnUrl = '/user/profile/1';
+          }
 
           this.alertService.showSuccess('Login Successful');
 
@@ -134,14 +147,16 @@ export class AuthService {
     lastName: string,
     token_prefix: string,
     email: string,
+    userId: number,
     expiration: number,
-    role: UserRole[]
+    role: string[]
   ) {
     if (isPlatformBrowser(this.ssrService.platformId)) {
       localStorage.setItem('email', email);
       localStorage.setItem('first_name', firstName);
       localStorage.setItem('last_name', lastName);
       localStorage.setItem('access_token', access_token);
+      localStorage.setItem('user_id', userId.toString());
       localStorage.setItem('token_type', token_prefix);
       localStorage.setItem('expiration_date', JSON.stringify(expiration));
       localStorage.setItem('user_roles', role.toString());
@@ -156,7 +171,9 @@ export class AuthService {
       localStorage.removeItem('last_name');
       localStorage.removeItem('access_token');
       localStorage.removeItem('user_roles');
+      localStorage.removeItem('email');
       localStorage.removeItem('applicant_id');
+      localStorage.removeItem('user_id');
     }
   }
 }

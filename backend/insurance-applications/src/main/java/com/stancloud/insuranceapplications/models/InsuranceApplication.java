@@ -19,7 +19,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class InsuranceApplication {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   private Long id;
 

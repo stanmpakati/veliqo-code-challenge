@@ -33,6 +33,8 @@ export class UserInsuranceApplicationsComponent implements OnInit, AfterViewInit
   displayedColumns: string[] = ['Insurance Name', 'Insurance Amount', 'Approval Status', 'Expiry Date', 'Actions'];
   tableData;
 
+  approvalStatus = ApprovalStatus.PENDING;
+
   constructor(
     private insuranceService: InsuranceService,
     private alertService: AlertService,
@@ -44,49 +46,6 @@ export class UserInsuranceApplicationsComponent implements OnInit, AfterViewInit
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
-    this.applications = [
-      {
-        id: 1,
-        insuranceType: {
-          id: 1,
-          name: 'Vehicle',
-          description: 'Some Description',
-          amount: 50,
-          currency: Currency.USD,
-          isActive: true,
-          hasExpiryDate: false,
-          paymentPeriod: PaymentPeriod.MONTHLY,
-          createdAt: new Date()
-        },
-        applicationPlea: 'Please please',
-        startDate: new Date(),
-        status: ApprovalStatus.PENDING,
-        applicantId: 3,
-        createdAt: new Date()
-      },
-      {
-        id: 2,
-        insuranceType: {
-          id: 2,
-          name: 'Travel',
-          description: 'Some Description',
-          amount: 5,
-          currency: Currency.USD,
-          isActive: true,
-          hasExpiryDate: true,
-          paymentPeriod: PaymentPeriod.DAILY,
-          createdAt: new Date()
-        },
-        applicationPlea: 'Please please',
-        startDate: new Date(),
-        expiryDate: new Date(),
-        denialNote: 'Not descriptive enough',
-        status: ApprovalStatus.REJECTED,
-        applicantId: 3,
-        createdAt: new Date()
-      }
-    ];
-
     this.loadData();
   }
 
@@ -115,28 +74,30 @@ export class UserInsuranceApplicationsComponent implements OnInit, AfterViewInit
 
   public onPageChange(obj: { pageIndex: number; pageSize: number }) {
     this.isLoading = true;
-    this.insuranceService.getApplications(true, { page: obj.pageIndex, size: obj.pageSize }).subscribe((res) => {
-      this.applications = res.data;
+    this.insuranceService
+      .getApplications(false, { page: obj.pageIndex, size: obj.pageSize }, { approvalStatus: this.approvalStatus })
+      .subscribe((res) => {
+        this.applications = res.data;
 
-      this.length = res.links.totalObjects;
-      this.hasData = this.applications.length > 0;
+        this.length = res.links.totalObjects;
+        this.hasData = this.applications.length > 0;
 
-      this.tableData = res.data.map((application) => {
-        return {
-          id: application.id,
-          insuranceName: application.insuranceType.name,
-          insuranceAmount: application.insuranceType.amount,
-          approvalStatus: application.status,
-          expiryDate: application.expiryDate
-        };
+        this.tableData = res.data.map((application) => {
+          return {
+            id: application.id,
+            insuranceName: application.insuranceType.name,
+            insuranceAmount: application.insuranceType.amount,
+            approvalStatus: application.status,
+            expiryDate: application.expiryDate
+          };
+        });
+
+        console.table(this.tableData);
+
+        this.dataSource = new MatTableDataSource(this.tableData);
+
+        this.isLoading = false;
       });
-
-      console.table(this.tableData);
-
-      this.dataSource = new MatTableDataSource(this.tableData);
-
-      this.isLoading = false;
-    });
   }
 
   announceSortChange(sortState: Sort) {

@@ -14,6 +14,11 @@ const routes: Routes = [
         title: 'User Profile'
       },
       {
+        path: 'profile/:applicantId',
+        component: UserProfileComponent,
+        title: 'User Profile'
+      },
+      {
         path: 'edit-profile',
         component: EditProfileComponent,
         title: 'User Profile'

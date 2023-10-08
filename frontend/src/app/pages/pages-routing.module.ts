@@ -1,3 +1,4 @@
+import { AdminModule } from './admin/admin.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -8,7 +9,12 @@ const routes: Routes = [
       {
         path: 'user',
         loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
-        title: 'User Profile'
+        title: 'User'
+      },
+      {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
+        title: 'Admin'
       }
     ]
   }

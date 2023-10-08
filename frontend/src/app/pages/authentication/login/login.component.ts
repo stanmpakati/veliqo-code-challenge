@@ -21,7 +21,7 @@ export default class LoginComponent {
     private route: ActivatedRoute,
     public authService: AuthService
   ) {
-    this.emailControl = new FormControl('stan@gani.com', {
+    this.emailControl = new FormControl('stan@mpaks.com', {
       validators: [Validators.required, Validators.email],
       updateOn: 'blur'
     });

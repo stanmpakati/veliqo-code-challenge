@@ -5,11 +5,12 @@ import com.stancloud.authenticationservice.applicant.Applicant
 import com.stancloud.authenticationservice.applicant.enums.MaritalStatus
 import com.stancloud.authenticationservice.applicant.enums.UserSex
 import com.stancloud.authenticationservice.user.User
+import com.stancloud.authenticationservice.user.dto.UserDto
 import java.util.*
 
 class  ApplicantDto (
   val applicantId: Long?,
-  val user: User,
+  val user: UserDto,
   val address: Address?,
   val sex: UserSex?,
   val maritalStatus: MaritalStatus?,
@@ -21,7 +22,7 @@ class  ApplicantDto (
   ) {
     constructor(applicant : Applicant) : this(
       applicant.applicantId,
-      applicant.user,
+      UserDto(applicant.user),
       applicant.address,
       applicant.sex,
       applicant.maritalStatus,

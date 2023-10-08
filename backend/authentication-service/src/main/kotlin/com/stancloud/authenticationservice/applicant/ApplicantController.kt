@@ -16,12 +16,17 @@ import org.springframework.web.bind.annotation.RestController
 class ApplicantController(
   private val applicantService: ApplicantService,
 ) {
-  @GetMapping("/applicantId")
+  @GetMapping("/{applicantId}")
   fun getApplicant(@PathVariable applicantId: Long): ApplicantDto {
     return applicantService.getApplicant(applicantId)
   }
 
-  @PutMapping("/applicantId")
+  @GetMapping("/get-by-user-id/{userId}")
+  fun getApplicantByUser(@PathVariable userId: Long): ApplicantDto {
+    return applicantService.getApplicantByUser(userId)
+  }
+
+  @PutMapping("/{applicantId}")
   fun updateApplicant(@PathVariable applicantId: Long, @RequestBody applicant: ApplicantDto): ApplicantDto {
     return applicantService.updateApplicant(applicantId, applicant)
   }

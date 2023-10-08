@@ -1,0 +1,17 @@
+<h1 mat-dialog-title class="text-center"> Reject application for {{ application?.insuranceType?.name }}</h1>
+<mat-dialog-content class="text-center">
+  <i class="text-warning ti ti-info-triangle"></i>
+  <h2>Please provide the reason for denying the application</h2>
+  <div class="row">
+    <div class="col-12 mb-3">
+      <mat-form-field>
+        <mat-label>Denial Note</mat-label>
+        <input type="text" [formControl]="denialNoteControl" matInput>
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mt-4">
+  <button mat-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" (click)="actionConfirm()">Reject Application</button>
+</mat-dialog-actions>

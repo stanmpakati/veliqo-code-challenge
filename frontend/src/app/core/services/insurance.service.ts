@@ -5,6 +5,7 @@ import {
   Currency,
   InsuranceApplication,
   InsuranceApplicationRequest,
+  InsuranceApplicationUpdate,
   InsuranceType,
   PaymentPeriod
 } from '@ui-core/models/insurance-models';
@@ -33,62 +34,17 @@ export class InsuranceService {
     let queryParams: {} = { ...pageOptions, ...query };
     if (forApplicant) queryParams = { ...queryParams, applicantId: this.applicantId };
     return this.http.get<PaginatedResponse<InsuranceApplication>>(`${insuranceApplicationUrl}`, { params: this.pageParams(queryParams) });
-    // return of({
-    //   data: [
-    //     {
-    //       id: 1,
-    //       insuranceType: {
-    //         id: 1,
-    //         name: 'Vehicle',
-    //         description: 'Some Description',
-    //         amount: 50,
-    //         currency: Currency.USD,
-    //         isActive: true,
-    //         hasExpiryDate: false,
-    //         paymentPeriod: PaymentPeriod.MONTHLY,
-    //         createdAt: new Date()
-    //       },
-    //       applicationPlea: 'Please please',
-    //       startDate: new Date(),
-    //       status: ApprovalStatus.PENDING,
-    //       applicantId: 3,
-    //       createdAt: new Date()
-    //     },
-    //     {
-    //       id: 2,
-    //       insuranceType: {
-    //         id: 2,
-    //         name: 'Travel',
-    //         description: 'Some Description',
-    //         amount: 5,
-    //         currency: Currency.USD,
-    //         isActive: true,
-    //         hasExpiryDate: true,
-    //         paymentPeriod: PaymentPeriod.DAILY,
-    //         createdAt: new Date()
-    //       },
-    //       applicationPlea: 'Please please',
-    //       startDate: new Date(),
-    //       expiryDate: new Date(),
-    //       denialNote: 'Not descriptive enough',
-    //       status: ApprovalStatus.REJECTED,
-    //       applicantId: 3,
-    //       createdAt: new Date()
-    //     }
-    //   ],
-    //   links: {
-    //     page: 1,
-    //     size: 2,
-    //     total: 2
-    //   }
-    // });
+  }
+
+  getApplication(applicationId: number) {
+    return this.http.get<InsuranceApplication>(`${insuranceApplicationUrl}/${applicationId}`);
   }
 
   createApplication(application: InsuranceApplicationRequest) {
     return this.http.post<InsuranceApplication>(`${insuranceApplicationUrl}`, { ...application, applicantId: this.applicantId });
   }
 
-  updateApplication(applicantId: number, application: InsuranceApplicationRequest) {
+  updateApplication(applicantId: number, application: InsuranceApplicationUpdate) {
     return this.http.put<InsuranceApplication>(`${insuranceApplicationUrl}/${applicantId}`, application);
   }
 
@@ -97,23 +53,19 @@ export class InsuranceService {
   }
 
   getInsuranceTypes(queryParams: {}) {
-    // return of({
-    //   data: [
-    //     {
-    //       id: 1,
-    //       name: 'Vehicle',
-    //       description: 'Some Description',
-    //       amount: 50,
-    //       currency: Currency.USD,
-    //       isActive: true,
-    //       hasExpiryDate: false,
-    //       paymentPeriod: PaymentPeriod.MONTHLY,
-    //       createdAt: new Date()
-    //     }
-    //   ],
-    //   links: null
-    // });
     return this.http.get<PaginatedResponse<InsuranceType>>(`${insuranceUrl}`, { params: this.pageParams(queryParams) });
+  }
+
+  createInsurance(createInsuranceDto: any) {
+    return this.http.post<InsuranceType>(`${insuranceUrl}`, createInsuranceDto);
+  }
+
+  updateInsuranceType(id: number, createinsuranceDto: any) {
+    return this.http.put<InsuranceType>(`${insuranceUrl}/${id}`, createinsuranceDto);
+  }
+
+  deleteInsuranceType(id: number) {
+    return this.http.delete(`${insuranceUrl}/${id}`);
   }
 
   private pageParams(query: {}) {

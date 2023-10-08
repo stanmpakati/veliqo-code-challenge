@@ -37,8 +37,8 @@ const NavigationItems = [
         title: 'Available Insurances',
         type: 'item',
         classes: 'nav-item',
-        url: '/user/insurances',
-        icon: 'ti ti-insurance',
+        url: '/admin/insurances',
+        icon: 'ti ti-coins',
         breadcrumbs: false
       }
     ]

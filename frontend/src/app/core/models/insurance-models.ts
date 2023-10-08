@@ -21,13 +21,22 @@ export interface InsuranceApplicationRequest {
   status: ApprovalStatus.PENDING;
 }
 
+export interface InsuranceApplicationUpdate {
+  applicationPlea?: string;
+  startDate?: Date;
+  expiryDate?: Date;
+  status?: ApprovalStatus;
+  denialNote?: string;
+  approvedBy?: number;
+}
+
 export interface InsuranceType {
   id: number;
   name: string;
   description: string;
   amount: number;
   currency: Currency;
-  isActive: boolean;
+  active: boolean;
   hasExpiryDate: boolean;
   paymentPeriod: PaymentPeriod;
   createdAt: Date;

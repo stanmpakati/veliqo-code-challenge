@@ -6,10 +6,9 @@ import org.hibernate.Hibernate
 @Entity
 data class Address (
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   var id: Long? = null,
-
   val street: String?,
   val suburb: String?,
   val city: String?,

@@ -4,40 +4,31 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdminComponent } from './theme/layout/admin/admin.component';
 import { NavigationItem } from './theme/layout/admin/navigation/navigation';
-import { NavBarComponent } from './theme/layout/admin/nav-bar/nav-bar.component';
-import { NavLeftComponent } from './theme/layout/admin/nav-bar/nav-left/nav-left.component';
-import { NavRightComponent } from './theme/layout/admin/nav-bar/nav-right/nav-right.component';
-import { NavigationComponent } from './theme/layout/admin/navigation/navigation.component';
-import { NavLogoComponent } from './theme/layout/admin/nav-bar/nav-logo/nav-logo.component';
-import { NavContentComponent } from './theme/layout/admin/navigation/nav-content/nav-content.component';
-import { NavGroupComponent } from './theme/layout/admin/navigation/nav-content/nav-group/nav-group.component';
-import { NavCollapseComponent } from './theme/layout/admin/navigation/nav-content/nav-collapse/nav-collapse.component';
-import { NavItemComponent } from './theme/layout/admin/navigation/nav-content/nav-item/nav-item.component';
-import { SharedModule } from './theme/shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from '@ui-core/interceptors/auth.interceptor';
 import { ErrorInterceptor } from '@ui-core/interceptors/error.interceptor';
 import { AuthGuard } from '@ui-core/guards/auth.guard';
-import { UserModule } from './pages/user/user.module';
 import { PagesModule } from './pages/pages.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
-  declarations: [
-    AppComponent
-    // AdminComponent,
-    // NavBarComponent,
-    // NavLeftComponent,
-    // NavRightComponent,
-    // NavigationComponent,
-    // NavLogoComponent,
-    // NavContentComponent,
-    // NavGroupComponent,
-    // NavItemComponent,
-    // NavCollapseComponent,
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    PagesModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      newestOnTop: true,
+      progressBar: true,
+      positionClass: 'toast-top-right',
+      timeOut: 12000,
+      extendedTimeOut: 10000
+    })
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, PagesModule],
   providers: [
     NavigationItem,
     AuthGuard,

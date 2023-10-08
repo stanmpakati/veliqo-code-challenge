@@ -20,6 +20,7 @@ import org.springframework.data.jpa.convert.QueryByExamplePredicateBuilder;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,9 +64,15 @@ public class InsuranceApplicationService {
     if(insuranceApplication.getApplicationPlea() != null) insurance.setApplicationPlea(insuranceApplication.getApplicationPlea());
     if(insuranceApplication.getExpiryDate() != null) insurance.setExpiryDate(insuranceApplication.getExpiryDate());
     if(insuranceApplication.getStartDate() != null) insurance.setStartDate(insuranceApplication.getStartDate());
-    if(insuranceApplication.getStatus() != null) insurance.setStatus(insuranceApplication.getStatus());
     if(insuranceApplication.getDenialNote() != null) insurance.setDenialNote(insuranceApplication.getDenialNote());
     if(insuranceApplication.getApprovedBy() != null) insurance.setApprovedBy(insuranceApplication.getApprovedBy());
+    if(insuranceApplication.getStatus() != null) {
+      insurance.setStatus(insuranceApplication.getStatus());
+
+      if(insuranceApplication.getStatus() == ApprovalStatus.APPROVED) {
+        insurance.setApprovalDate(LocalDate.now());
+      }
+    }
 
     if(insuranceApplication.getInsuranceTypeId() != null) {
       InsuranceType insuranceType = insuranceRepository.findById(insuranceApplication.getInsuranceTypeId())
