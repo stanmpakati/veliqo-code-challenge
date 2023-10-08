@@ -37,8 +37,34 @@ const NavigationItems = [
         title: 'Available Insurances',
         type: 'item',
         classes: 'nav-item',
-        url: '/admin/insurances',
+        url: '/user/insurances',
         icon: 'ti ti-coins',
+        breadcrumbs: false
+      }
+    ]
+  },
+  {
+    id: 'admin',
+    title: 'Admin',
+    type: 'group',
+    icon: 'icon-navigation',
+    children: [
+      {
+        id: 'home',
+        title: 'User Applications',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/admin/applications',
+        icon: 'ti ti-home',
+        breadcrumbs: false
+      },
+      {
+        id: 'insurance',
+        title: 'Insurance Types',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/admin/insurances',
+        icon: 'ti ti-apps-filled',
         breadcrumbs: false
       }
     ]
