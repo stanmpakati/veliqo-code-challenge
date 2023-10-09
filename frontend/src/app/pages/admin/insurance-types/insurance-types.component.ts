@@ -1,3 +1,8 @@
+import {
+  ActionConfirmComponent,
+  DialogAction,
+  DialogActionData
+} from './../../../theme/shared/components/action-confirm/action-confirm.component';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -9,7 +14,6 @@ import { DialogResponse } from '@ui-core/models/helper-models';
 import { InsuranceApplication, InsuranceType } from '@ui-core/models/insurance-models';
 import { AlertService } from '@ui-core/services/alert.service';
 import { InsuranceService } from '@ui-core/services/insurance.service';
-import { ViewApplicationDialogComponent } from '@ui-pages/user/view-application-dialog/view-application-dialog.component';
 import { CreateInsuranceDialogComponent } from '../create-insurance-dialog/create-insurance-dialog.component';
 
 interface TableData {
@@ -57,16 +61,6 @@ export class InsuranceTypesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-  viewApplication(application: InsuranceApplication) {
-    const dialogRef = this.dialog.open(ViewApplicationDialogComponent, { data: application, maxWidth: '800px', width: '80vw' });
-
-    dialogRef.afterClosed().subscribe((result: DialogResponse<InsuranceApplication>) => {
-      if (result?.isSuccessful) {
-        this.loadData();
-      }
-    });
   }
 
   public loadData() {
@@ -141,9 +135,22 @@ export class InsuranceTypesComponent implements OnInit, AfterViewInit {
   }
 
   deleteItem(insurance: InsuranceType) {
-    this.insuranceService.deleteInsuranceType(insurance.id).subscribe((res) => {
-      this.alertService.showSuccess('Insurance type deleted successfully');
-      this.loadData();
+    let data: DialogActionData = {
+      name: `Delete insurance ${insurance.name}?`,
+      message: `Are you sure you want to permanently delete this insurance type?`,
+      action: DialogAction.DELETE
+    };
+
+    const dialogRef = this.dialog.open(ActionConfirmComponent, { data });
+
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.insuranceService.deleteInsuranceType(insurance.id).subscribe((res) => {
+          this.loadData();
+          this.alertService.showInfo(`You have successfully deleted the ${insurance.name} insurance`, 'Insurance Delete successful');
+          this.cdr.detectChanges();
+        });
+      }
     });
   }
 

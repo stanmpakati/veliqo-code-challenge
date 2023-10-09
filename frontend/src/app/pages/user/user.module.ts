@@ -11,7 +11,6 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserInsuranceApplicationsComponent } from './user-insurance-applications/user-insurance-applications.component';
-import { ViewApplicationDialogComponent } from './view-application-dialog/view-application-dialog.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { CreateApplicationComponent } from './create-application/create-application.component';
@@ -20,13 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
-  declarations: [
-    EditProfileComponent,
-    UserProfileComponent,
-    UserInsuranceApplicationsComponent,
-    ViewApplicationDialogComponent,
-    CreateApplicationComponent
-  ],
+  declarations: [EditProfileComponent, UserProfileComponent, UserInsuranceApplicationsComponent, CreateApplicationComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

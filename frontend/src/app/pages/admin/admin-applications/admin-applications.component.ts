@@ -5,11 +5,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { DialogResponse } from '@ui-core/models/helper-models';
 import { ApprovalStatus, InsuranceApplication } from '@ui-core/models/insurance-models';
 import { AlertService } from '@ui-core/services/alert.service';
 import { InsuranceService } from '@ui-core/services/insurance.service';
-import { ViewApplicationDialogComponent } from '@ui-pages/user/view-application-dialog/view-application-dialog.component';
 
 interface TableData {
   insuranceName: string;
@@ -64,16 +64,6 @@ export class AdminApplicationsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-  viewApplication(application: InsuranceApplication) {
-    const dialogRef = this.dialog.open(ViewApplicationDialogComponent, { data: application, maxWidth: '800px', width: '80vw' });
-
-    dialogRef.afterClosed().subscribe((result: DialogResponse<InsuranceApplication>) => {
-      if (result?.isSuccessful) {
-        this.loadData();
-      }
-    });
   }
 
   public loadData() {

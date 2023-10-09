@@ -71,66 +71,52 @@
           <div class="card card-profile-proper">
             <div class="card-header">
               <h2 class="card-title">Insurance Type</h2>
-              <p class="card-category">User's profile</p>
+              <p class="card-category">Insurance Applied for</p>
             </div>
             <div class="card-body">
               <table class="table table-borderless">
                 <tbody>
                   <tr>
-                    <td>User Id:</td>
+                    <td>Insurance Name:</td>
                     <td>
-                      <strong class="color-primary"> searchResult.userId </strong>
+                      <strong class="color-primary"> {{ application.insuranceType.name }} </strong>
                     </td>
                   </tr>
                   <tr>
-                    <td>First Name: </td>
+                    <td>Description:</td>
                     <td>
-                      <strong class="color-primary"> searchResult.firstName </strong>
+                      <strong class="color-primary"> {{ application.insuranceType.description }} </strong>
                     </td>
                   </tr>
                   <tr *ngIf="true">
-                    <td>Middle Names: </td>
+                    <td>Amount: </td>
                     <td>
-                      <strong class="color-primary"> searchResult.middleNames </strong>
+                      <strong class="color-primary">{{ application.insuranceType.currency }}{{
+                        application.insuranceType.amount }}</strong>
                     </td>
                   </tr>
                   <tr>
-                    <td>Last Name: </td>
+                    <td>Payment Period: </td>
                     <td>
-                      <strong class="color-primary"> searchResult.lastName </strong>
+                      <strong class="color-primary"> {{ application.insuranceType.paymentPeriod }} </strong>
                     </td>
                   </tr>
                   <tr>
-                    <td>Email: </td>
+                    <td>Has Expiry Date: </td>
                     <td>
-                      <strong class="color-primary"> searchResult.email </strong>
+                      <strong class="color-primary"> {{ application.insuranceType.hasExpiryDate }} </strong>
                     </td>
                   </tr>
                   <tr>
-                    <td>Roles:</td>
+                    <td>Date Created:</td>
                     <td>
-                      <strong class="color-primary"> searchResult.roles </strong>
-                      <mat-chip class="badge badge-pill p-2 ml-2 chip-button" color="accent" selected>Edit Roles
-                      </mat-chip>
+                      <strong class="color-primary"> {{ application.insuranceType.createdAt | date }} </strong>
                     </td>
                   </tr>
                   <tr>
-                    <td>Sign Up Source:</td>
+                    <td>Currently Active:</td>
                     <td>
-                      <strong class="color-primary"> searchResult.signupSource || 'NOT RECORDED' | splitSnakeCase
-                      </strong>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Signed up:</td>
-                    <td>
-                      <strong class="color-primary"> searchResult.createdAt | date </strong>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Last Profile Update:</td>
-                    <td>
-                      <strong class="color-primary"> searchResult.updatedAt | date </strong>
+                      <strong class="color-primary"> {{ application.insuranceType.active }} </strong>
                     </td>
                   </tr>
                 </tbody>

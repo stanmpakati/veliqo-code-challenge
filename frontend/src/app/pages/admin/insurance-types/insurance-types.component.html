@@ -40,10 +40,12 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
         <td mat-cell *matCellDef="let row">
-          <button class="btn btn-outline-secondary mx-1" (click)="editInsurance(row)"><i
-              class="ti ti-edit"></i>Edit</button>
-          <button class=" btn btn-outline-danger mx-1" (click)="deleteItem(row)"><i
-              class="ti ti-trash"></i>Delete</button>
+          <div class="d-inline-flex">
+            <button class="btn btn-outline-secondary mx-1" (click)="editInsurance(row)"><i
+                class="ti ti-edit"></i>Edit</button>
+            <button class=" btn btn-outline-danger mx-1" (click)="deleteItem(row)"><i
+                class="ti ti-trash"></i>Delete</button>
+          </div>
         </td>
       </ng-container>
 

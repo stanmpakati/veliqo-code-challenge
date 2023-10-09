@@ -4,7 +4,6 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { ViewApplicationDialogComponent } from '../view-application-dialog/view-application-dialog.component';
 import { InsuranceService } from '@ui-core/services/insurance.service';
 import { DialogResponse } from '@ui-core/models/helper-models';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -54,18 +53,6 @@ export class UserInsuranceApplicationsComponent implements OnInit, AfterViewInit
 
     this.dataSource.sort = this.sort;
     this.cdr.detectChanges();
-  }
-
-  viewApplication(application: InsuranceApplication) {
-    const dialogRef = this.dialog.open(ViewApplicationDialogComponent, { data: application, maxWidth: '800px', width: '80vw' });
-
-    dialogRef.afterClosed().subscribe((result: DialogResponse<InsuranceApplication>) => {
-      if (result?.isSuccessful) {
-        console.log('Added', result.data);
-
-        this.loadData();
-      }
-    });
   }
 
   private loadData() {
@@ -137,7 +124,7 @@ export class UserInsuranceApplicationsComponent implements OnInit, AfterViewInit
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.insuranceService.deleteApplication(application.id).subscribe((res) => {
-          this.loadData;
+          this.loadData();
           this.alertService.showInfo(
             `You have successfully cancelled your insurance for ${application.insuranceType.name}`,
             'Insurance cancel successful'
